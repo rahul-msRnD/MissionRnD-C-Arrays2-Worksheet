@@ -23,5 +23,33 @@ struct transaction {
 };
 
 struct transaction * sortedArraysCommonElements(struct transaction *A, int ALen, struct transaction *B, int BLen) {
-	return NULL;
+	int i = 0, j = 0, k = 0;
+	struct transaction *t = NULL;
+	while (A && B && i < ALen && j < BLen)
+	{
+		if (A[i].amount < B[i].amount)
+			i++;
+		else if (A[i].amount > B[i].amount)
+			j++;
+		else
+		{
+			if (k == 0)
+			{
+				t = (struct transaction *)malloc(sizeof(struct transaction));
+				t[k].amount = A[i].amount;
+				strcpy(t[k].date, A[i].date);
+				strcpy(t[k].description, A[i].description);
+			}
+			else
+			{
+				t = (struct transaction *)realloc(t, (k + 1)*sizeof(struct transaction));
+				t[k].amount = A[i].amount;
+				strcpy(t[k].date, A[i].date);
+				strcpy(t[k].description, A[i].description);
+			}
+			i++;
+			k++;
+		}
+	}
+	return t;
 }
